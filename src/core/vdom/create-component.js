@@ -111,7 +111,7 @@ export function createComponent (
 
   const baseCtor = context.$options._base
 
-  // plain options object: turn it into a constructor
+  // plain options object: turn it into a constructor，传入的Ctor是一个组件对象，将它转换为构造器
   if (isObject(Ctor)) {
     Ctor = baseCtor.extend(Ctor)
   }

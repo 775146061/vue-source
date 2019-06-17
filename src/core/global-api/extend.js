@@ -20,6 +20,7 @@ export function initExtend (Vue: GlobalAPI) {
     extendOptions = extendOptions || {}
     const Super = this
     const SuperId = Super.cid
+    // todo xt 这里的构造器缓存机制没弄懂
     const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {})
     if (cachedCtors[SuperId]) {
       return cachedCtors[SuperId]
@@ -33,7 +34,9 @@ export function initExtend (Vue: GlobalAPI) {
     const Sub = function VueComponent (options) {
       this._init(options)
     }
+    // 将Vue的prototype对象复制给子组件构造器，这样就能解释得同上面得this._init(options)从哪里来的啦
     Sub.prototype = Object.create(Super.prototype)
+    // todo xt2 这里不懂，为什么要把Sub复制给constructor
     Sub.prototype.constructor = Sub
     Sub.cid = cid++
     Sub.options = mergeOptions(
